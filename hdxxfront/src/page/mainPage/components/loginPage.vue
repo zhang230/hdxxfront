@@ -71,8 +71,9 @@ export default {
                       // console.log(res);
                       let data1=res.data[0].data1;
                       let verifyCode=res.data[1].verifyCode;
-                         console.log(data1);
-                         console.log(verifyCode);
+                        //  console.log(data1);
+                        //  console.log(verifyCode);
+                      sessionStorage.setItem("user_id",data1.data.user_id);
                          if(data1.msg=='操作成功' && verifyCode.msg=='验证码正确'){
                               let turi='';
                               if(data1.data.role==='admin'){

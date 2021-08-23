@@ -4,12 +4,12 @@
                  <el-input
                         class="user-info-list-user_name"
                         placeholder="用户名"
-                        v-model="username">
+                        v-model="user_name">
                     </el-input>
                 <el-input
-                        class="user-info-list-user_name"
+                        class="user-info-list-user_phone"
                         placeholder="手机号"
-                        v-model="user_name">
+                        v-model="user_phone">
                     </el-input>
                 <el-input
                         class="user-info-list-email"
@@ -33,14 +33,14 @@
         label="----用户名----"
         width="220">
         <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.username }}</span>
+            <span style="margin-left: 10px">{{ scope.row.user_name }}</span>
         </template>
         </el-table-column>
         <el-table-column
         label="----手机号----"
         width="300">
         <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.user_name }}</span>
+            <span style="margin-left: 10px">{{ scope.row.user_phone }}</span>
         </template>
         </el-table-column>
         <el-table-column
@@ -67,6 +67,18 @@
             size="mini"
             type="primary"
             @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            <el-dialog
+              title="提示"
+              :visible.sync="dialogVisible"
+              width="30%"
+              :before-close="handleClose">
+              <span>确定删除吗?</span>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="sureDeleteUserInfo()">确 定</el-button>
+              </span>
+            </el-dialog>
+
         </template>
         </el-table-column>
   </el-table>
@@ -83,7 +95,7 @@
     </el-pagination>
   </div>
   <!-- userInfoList模块传递用户id到userInfoUpdate模块，这样在userInfoUpdate模块就可以根据user_id更新数据库了 -->
-  <userInfoUpdate v-if="userinfoupdate" :user_id="user_Id" @changeUserInfoUpdate_Var="changeUserInfoUpdate_Var()"></userInfoUpdate>
+  <userInfoUpdate v-if="userinfoupdate" :user="user" @changeUserInfoUpdate_Var="changeUserInfoUpdate_Var()"></userInfoUpdate>
   <!-- 用户添加不需要userInfoList模块传递给userInfoAdd模块user_id。因为数据库主键自增。 -->
   <userInfoAdd v-if="userinfoadd" @changeUserInfoAdd_Var="changeUserInfoAdd_Var()"></userInfoAdd>
   </div>
@@ -101,92 +113,59 @@ import userInfoAdd from './userInfoAdd.vue'
    },
     data() {
       return {
-        user_Id: 1,
+        userIndex:0,
+        dialogVisible: false,
+        user: {},
         userinfoupdate: false,
         userinfoadd: false,
-        username:'',
         user_name:'',
+        user_phone:'',
         email:'',
         user_nickname:'',
         currentPage: 0,
         input: '',
         tableData: [],
-        tableData_List: [{
-          username: '张世和',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '张世和',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '张世和',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '张世和',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '张世和',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '张世和',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '张世和',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        },{
-          username: '李四',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '李四',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '李四',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '李四',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '李四',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '李四',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }, {
-          username: '李四',
-          user_name: '16608038762',
-          email: '1804961700@qq.com',
-          user_nickname: '小张'
-        }],
+        tableData_List: [],
         pagesize:7,
         total: 100
       }
     },
     methods: {
+      sureDeleteUserInfo(){
+         this.dialogVisible = false;
+          console.log("delete!!!!!");
+                let _this =this;
+                // console.log("user_id是:"+this.tableData_List[this.userIndex].user_id);
+                //delete请求和put  post  get参数不同。需要指名使用config下面的才可以做。https://blog.csdn.net/qq383366204/article/details/80268007
+                 this.$http.delete('/admin/userInfoDelete',{
+                   data:{ user_id: this.tableData_List[this.userIndex].user_id}
+                 }).then(function(res){
+                       console.log(res);
+                       let data=res.data;
+                       if(data.msg=='操作成功'){
+                             _this.$message({
+                              message: data.msg,
+                              type: 'success'
+                            })
+                       }else{
+                         _this.$message({
+                           message: data.msg,
+                           type: 'error'
+                         })
+                       }
+                  }).catch(function(err){
+                    console.log(err)
+                  })
+            location.reload();
+      },
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {
+          });
+      },
       changeUserInfoAdd_Var(data){
         this.userinfoadd=data;
       },
@@ -196,9 +175,9 @@ import userInfoAdd from './userInfoAdd.vue'
       changeUserInfoUpdate_Var(data){
           this.userinfoupdate=data;
       },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
+      // handleSizeChange(val) {
+      //   console.log(`每页 ${val} 条`);
+      // },
       handleCurrentChange(val) {
          val=val-1;
          this.currentPage=val;
@@ -212,24 +191,57 @@ import userInfoAdd from './userInfoAdd.vue'
       handleEdit(index, row) {
         this.userinfoupdate=!this.userinfoupdate;
         let userindex=this.currentPage*this.pagesize+index;
-        console.log("当前user的index为: "+userindex+"userinfoupdate: "+this.userinfoupdate);
+        this.user=this.tableData_List[userindex];
+        // console.log("当前user的index为: "+userindex+"userinfoupdate: "+this.userinfoupdate);
       },
       handleDelete(index, row) {
-        console.log(index, row);
+        this.dialogVisible=true;
+        // console.log(index, row);
+          // this.userinfoupdate=!this.userinfoupdate;
+          let userindex=this.currentPage*this.pagesize+index;
+          this.userIndex=userindex;
+          
       },
       resetContents(){
-         this.username=this.user_name=this.email=this.user_nickname='';
+         this.user_name=this.user_phone=this.email=this.user_nickname='';
       },
       findUserInfo(){
-          console.log("OK");
+         //向后端请求数据
+                   let _this =this;
+                  //  console.log(this.ruleForm.user_name+"::::!!"+this.ruleForm.user_password);
+                 this.$http.post('/admin/findUserInfos',{
+                   user_name: this.user_name,
+                   user_phone: this.user_phone,
+                   email: this.email,
+                   user_nickname: this.user_nickname
+                 }).then(function(res){
+                    // console.log(res);
+                     _this.tableData_List=res.data.data;
+                     console.log(_this.tableData_List);
+                      _this.tableData=[];
+                        for(let i=0;i<Math.min(7,_this.tableData_List.length);i++){
+                          _this.tableData.push(_this.tableData_List[i]);
+                        }
+                  }).catch(function(err){
+                    console.log(err)
+                  })
       }
     },
     created(){
-       //请求资源
-       this.tableData=[];
-         for(let i=0;i<7;i++){
-           this.tableData.push(this.tableData_List[i]);
-         }
+              //向后端请求数据
+                   let _this =this;
+                  //  console.log(this.ruleForm.user_name+"::::!!"+this.ruleForm.user_password);
+                 this.$http.get('/admin/allUserInfo').then(function(res){
+                    // console.log(res);
+                     _this.tableData_List=res.data.data;
+                     console.log(_this.tableData_List);
+                      _this.tableData=[];
+                        for(let i=0;i<Math.min(7,_this.tableData_List.length);i++){
+                          _this.tableData.push(_this.tableData_List[i]);
+                        }
+                  }).catch(function(err){
+                    console.log(err)
+                  })
     }
   }
 </script>
@@ -313,7 +325,7 @@ import userInfoAdd from './userInfoAdd.vue'
     padding: 0px;
     margin: 0px;
 }
-.user-info-list-tiao .user-info-list-user_name{
+.user-info-list-tiao .user-info-list-user_phone{
  position: absolute;
     top: 2%;
     left: 35%;
