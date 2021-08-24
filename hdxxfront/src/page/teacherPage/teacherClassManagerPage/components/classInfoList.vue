@@ -87,9 +87,9 @@
     </el-pagination>
   </div>
   <!-- classInfoList模块传递用户id到classInfoUpdate模块，这样在classInfoUpdate模块就可以根据class_id更新数据库了 -->
-  <classInfoUpdate v-if="classinfoupdate" :class_id="class_Id" @changeClassInfoUpdate_Var="changeClassInfoUpdate_Var()"></classInfoUpdate>
+  <classInfoUpdate v-if="classinfoupdate" :teacherCourseInfo="teacherCourseInfo" @changeClassInfoUpdate_Var="changeClassInfoUpdate_Var()"></classInfoUpdate>
   <!-- 用户添加不需要classInfoList模块传递给classInfoAdd模块class_id。因为数据库主键自增。 -->
-  <classInfoAdd v-if="classinfoadd" @changeClassInfoAdd_Var="changeClassInfoAdd_Var()"></classInfoAdd>
+  <classInfoAdd v-if="classinfoadd" :teacherCourseInfo="teacherCourseInfo" @changeClassInfoAdd_Var="changeClassInfoAdd_Var()"></classInfoAdd>
   </div>
 </template>
 
@@ -105,7 +105,7 @@ import classInfoAdd from './classInfoAdd.vue'
    },
     data() {
       return {
-        class_Id: 1,
+        teacherCourseInfo: 1,
         classinfoupdate: false,
         classinfoadd: false,
         course_name:'',
@@ -144,7 +144,8 @@ import classInfoAdd from './classInfoAdd.vue'
       handleEdit(index, row) {
         this.classinfoupdate=!this.classinfoupdate;
         let classindex=this.currentPage*this.pagesize+index;
-        console.log("当前class的index为: "+classindex+"classinfoupdate: "+this.classinfoupdate);
+        this.teacherCourseInfo=this.tableData_List[classindex];
+        // console.log("当前class的index为: "+classindex+"classinfoupdate: "+this.classinfoupdate);
       },
       handleDelete(index, row) {
         console.log(index, row);

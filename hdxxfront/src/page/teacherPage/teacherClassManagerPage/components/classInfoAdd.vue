@@ -102,6 +102,7 @@
 
 <script>
 export default {
+    props:['teacherCourseInfo'],
     data(){
         return{
             imageUrl: '../../../assets/touxiang.png',
@@ -126,6 +127,9 @@ export default {
             return false;
             }
       }
+    },
+    created(){
+        console.log(this.teacherCourseInfo);
     }
 }
 </script>

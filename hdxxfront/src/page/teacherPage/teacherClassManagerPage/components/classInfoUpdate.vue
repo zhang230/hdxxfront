@@ -21,12 +21,12 @@
                 <el-row >
                         <el-col :span="12">
                         <el-form-item label="课程名称" prop="name">
-                        <el-input type="text" class="form-control" placeholder="课程名称" v-model="formName"></el-input>
+                        <el-input type="text" class="form-control" placeholder="课程名称" v-model="teacherCourseInfo.course_name"></el-input>
                         </el-form-item>
                         </el-col>
                         <el-col :span="12">
                         <el-form-item label="课程类别" prop="user_nickname">
-                        <el-input type="text" class="form-control" placeholder="课程类别" v-model="formName"></el-input>
+                        <el-input type="text" class="form-control" placeholder="课程类别" v-model="teacherCourseInfo.course_category"></el-input>
                         </el-form-item>
                     </el-col>
                     </el-row>
@@ -35,13 +35,13 @@
                         <el-col :span="12">
                         <el-form-item label="课时" prop="real_name">
                             <!-- <label>真实姓名</label> -->
-                        <el-input type="text" class="form-control" placeholder="课时" v-model="formName"></el-input>
+                        <el-input type="text" class="form-control" placeholder="课时" v-model="teacherCourseInfo.course_time"></el-input>
                         </el-form-item>
                         </el-col>
                         <el-col :span="12">
                         <el-form-item label="课程状态" prop="score">
                             <!-- <label>积分</label> -->
-                        <el-input type="text" class="form-control" placeholder="课程状态" v-model="formName"></el-input>
+                        <el-input type="text" class="form-control" placeholder="课程状态" v-model="teacherCourseInfo.course_check_status"></el-input>
                         </el-form-item>
                         </el-col>
                     </el-row>
@@ -49,13 +49,13 @@
                         <el-col :span="12">
                         <el-form-item label="开课时间" prop="phone">
                             <!-- <label>手机号码*</label> -->
-                        <el-input type="text" class="form-control" placeholder="开课时间" v-model="formName"></el-input>
+                        <el-input type="text" class="form-control" placeholder="开课时间" v-model="teacherCourseInfo.course_open_time"></el-input>
                         </el-form-item>
                         </el-col>
                         <el-col  :span="12">
                         <el-form-item label="视频名字" prop="phone" disabled>
                             <!-- <label>手机号码*</label> -->
-                        <el-input type="text" class="form-control" disabled placeholder="视频名字" v-model="formName"></el-input>
+                        <el-input type="text" class="form-control"  placeholder="视频名字" :title="teacherCourseInfo.course_src_path" v-model="teacherCourseInfo.course_src_path"></el-input>
                         </el-form-item>
                         </el-col>
                     </el-row>
@@ -65,7 +65,7 @@
                         <el-col :span="12">
                         <el-form-item label="课程所属" prop="address">
                             <!-- <label>地址</label> -->
-                        <el-input type="text" class="form-control" placeholder="课程所属" v-model="formName"></el-input>
+                        <el-input type="text" class="form-control" placeholder="课程所属" v-model="teacherCourseInfo.course_belong_to"></el-input>
                         </el-form-item>
                         </el-col>
                     </el-row>
@@ -74,7 +74,7 @@
                         <el-col :span="12">
                         <el-form-item label="课程来源*" prop="email">
                             <!-- <label>邮箱地址*</label> -->
-                        <el-input type="text" class="form-control" placeholder="课程来源" v-model="formName"></el-input>
+                        <el-input type="text" class="form-control" placeholder="课程来源" v-model="teacherCourseInfo.course_origin"></el-input>
                         </el-form-item>
                         </el-col>
                         
@@ -83,7 +83,7 @@
                         <el-col :span="12">
                         <el-form-item label="章名称" prop="duty">
                             <!-- <label>职务</label> -->
-                        <el-input type="text" class="form-control" placeholder="章名称" v-model="formName"></el-input>
+                        <el-input type="text" class="form-control" placeholder="章名称" v-model="teacherCourseInfo.course_zhang_name"></el-input>
                         </el-form-item>
                     </el-col>
                     </el-row>
@@ -97,7 +97,7 @@
 
 <script>
 export default {
-     props:['class_id'],
+     props:['teacherCourseInfo'],
      data(){
          return{
             imageUrl: '../../../assets/touxiang.png',
@@ -121,6 +121,9 @@ export default {
             return false;
             }
         }
+     },
+     created(){
+        //  console.log(this.teacherCourseInfo);
      }
 }
 </script>
