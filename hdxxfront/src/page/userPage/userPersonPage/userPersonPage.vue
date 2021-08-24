@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 50px ;margin-left: 20%">
+  <div style="margin-top: 5%; margin-left: 24%;">
     <el-card class="box-card" shadow="hover" style="width:800px;height:600px ">
       <div slot="header" class="clearfix">
         <span>个人空间</span>

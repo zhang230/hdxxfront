@@ -19,7 +19,7 @@
           <div class="verfycodePic"><img :src="imgUrl" alt="" @click="resetImg()"/></div>
           </el-form-item>
         <el-form-item style="margin-top: 20%;">
-          <el-button type="primary" @click="submitForm('ruleForm')" style="width: 30%;">提交</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')" style="width: 30%;">登录</el-button>
           <el-button @click="resetForm('ruleForm')" style="width: 30%;margin-left: 14%;">重置</el-button>
         </el-form-item>
       </el-form>
@@ -81,13 +81,18 @@ export default {
                               }else if(data1.data.role==='teacher'){
                                   turi='teacher/teacherClassManagerPage';
                               }else if(data1.data.role==='user'){
-                                  turi='user/userLookVideo';
+                                  turi='userMain';
                               }
                           
                             _this.$router.push({path: '/'+turi});
-                          }else if(data1.msg!='操作成功' || verifyCode.msg=='验证码错误'){
+                          }else if(data1.msg!='操作成功'){
                                _this.$message({
-                                message: data1.msg+" 或者 "+verifyCode.msg,
+                                message: data1.msg,
+                                type: 'info',
+                              });
+                            }else if(verifyCode.msg=='验证码错误'){
+                                _this.$message({
+                                message: verifyCode.msg,
                                 type: 'info',
                               });
                             }
