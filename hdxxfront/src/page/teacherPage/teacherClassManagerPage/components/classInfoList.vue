@@ -51,7 +51,7 @@
             label="----视频路径----"
             width="200">
             <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.course_src_path }}</span>
+                <span style="margin-left: 10px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis;" :title="scope.row.course_src_path">{{ scope.row.course_src_path }}</span>
             </template>
         </el-table-column>
          <el-table-column
@@ -113,105 +113,7 @@ import classInfoAdd from './classInfoAdd.vue'
         currentPage: 0,
         input: '',
         tableData: [],
-        tableData_List: [{
-          course_name: '大数据分析',
-          course_category: 'python',
-          course_zhang_name: '大数据-python',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '大数据分析',
-          course_category: 'python',
-          course_zhang_name: '大数据-python',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '大数据分析',
-          course_category: 'python',
-          course_zhang_name: '大数据-python',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '大数据分析',
-          course_category: 'python',
-          course_zhang_name: '大数据-python',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '大数据分析',
-          course_category: 'python',
-          course_zhang_name: '大数据-python',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '大数据分析',
-          course_category: 'python',
-          course_zhang_name: '大数据-python',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '大数据分析',
-          course_category: 'python',
-          course_zhang_name: '大数据-python',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '网络安全',
-          course_category: 'c',
-          course_zhang_name: '网络安全-c',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '网络安全',
-          course_category: 'c',
-          course_zhang_name: '网络安全-c',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '网络安全',
-          course_category: 'c',
-          course_zhang_name: '网络安全-c',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '网络安全',
-          course_category: 'c',
-          course_zhang_name: '网络安全-c',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '网络安全',
-          course_category: 'c',
-          course_zhang_name: '网络安全-c',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '网络安全',
-          course_category: 'c',
-          course_zhang_name: '网络安全-c',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        },{
-          course_name: '网络安全',
-          course_category: 'c',
-          course_zhang_name: '网络安全-c',
-          course_jie_name: '第一节',
-          course_src_path: '/course_src_path:',
-          course_check_status: true
-        }],
+        tableData_List: [],
         pagesize:7,
         total: 100
       }
@@ -255,13 +157,21 @@ import classInfoAdd from './classInfoAdd.vue'
       }
     },
     created(){
-       //请求资源
-       this.tableData=[];
-         for(let i=0;i<7;i++){
-           this.tableData.push(this.tableData_List[i]);
-         }
-    }
-  }
+      let _this=this;
+       let user_id=sessionStorage.getItem("user_id");
+        this.$http.get('/teacher/allCourseVideoInfo/'+user_id).then(function(res){
+                    console.log(res.data);
+                     _this.tableData_List=res.data.data;
+                     console.log(_this.tableData_List);
+                      _this.tableData=[];
+                        for(let i=0;i<Math.min(7,_this.tableData_List.length);i++){
+                          _this.tableData.push(_this.tableData_List[i]);
+                        }
+                  }).catch(function(err){
+                    console.log(err)
+                  })
+        }
+ }
 </script>
 
 <style scoped>

@@ -98,6 +98,26 @@
           <el-input type="text" class="form-control" placeholder="请更新所属部门" v-model="user.branch_name"></el-input>
         </el-form-item>
         </el-col>
+        <el-col :span="12">
+         <el-form-item label="角色" prop="role">
+            <!-- <label>所属部门</label> -->
+          <!-- <el-input type="text" class="form-control" placeholder="请选择角色" v-model="user.role"></el-input> -->
+                  <el-select v-model="user.role" placeholder="请选择角色" style="position: absolute; width: 50%;left: 25%;">
+                  <el-option
+                    v-for="item in roleList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+        </el-form-item>
+        </el-col>
+         <el-col :span="12">
+        <el-form-item label="用户密码" prop="user_password">
+            <!-- <label>所属机构*</label> -->
+          <el-input type="text" class="form-control" placeholder="请更新密码" v-model="user.user_password"></el-input>
+        </el-form-item>
+        </el-col>
       </el-row>
         
         </el-form>
@@ -116,7 +136,18 @@ export default {
      props:['user'],
      data(){
          return{
-              
+              roleList: [
+                 {
+                  value: 'admin',
+                  label: 'admin'
+                }, {
+                  value: 'teacher',
+                  label: 'teacher'
+                }, {
+                  value: 'user',
+                  label: 'user'
+                } 
+              ]
          }
      },
      methods:{
@@ -131,6 +162,7 @@ export default {
                       user_id: this.user.user_id,
                       name: this.user.name,
                       user_name: this.user.user_name,
+                      user_password: this.user.user_password,
                       user_nickname: this.user.user_nickname,
                       a_points: this.user.a_points,
                       user_phone:this.user.user_phone,
@@ -140,7 +172,8 @@ export default {
                       identity_card: this.user.identity_card,
                       account_balance: this.user.account_balance,
                       organization: this.user.organization,
-                      branch_name: this.user.branch_name
+                      branch_name: this.user.branch_name,
+                      role: this.user.role
                  }).then(function(res){
                        console.log(res);
                        let data=res.data;

@@ -4,7 +4,7 @@
       <el-button type="primary" @click="subMitAllIfo()" class="el-btn-submit">提交</el-button>
        <el-form class="el-form-courseinfo" ref="ruleForm">
            <!-- :auto-upload="false" -->
-           <el-upload
+           <!-- <el-upload
                     class="avatar-uploader"
                     style="border: 1px solid #FFFFFF;"
                     action=""
@@ -16,7 +16,7 @@
                     <img v-if="imageUrl" :src="imageUrl" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
-            <div class="class-info-icon-tishi">课程头像</div>
+            <div class="class-info-icon-tishi">课程头像</div> -->
             <div class="class-info-input" >
                 <el-row >
                         <el-col :span="12">
@@ -133,11 +133,11 @@ export default {
 <style scoped>
 .upload-demo{
     position: absolute;
-    top: 20%;
-    left: 65.5%;
+    top: 30%;
+    left: 62%;
 } 
 .el-row{
-    margin-left: 5%;
+    margin-left: 8%;
     margin-top: 2%;
 }
 .el-input{
@@ -146,8 +146,8 @@ export default {
     width: 40%;
 }
 .class-info-input{
-    margin-left: 22%;
-    margin-top: 2%;
+    margin-left: 18%;
+    margin-top: 8%;
     width: 70%;
     height: 80%;
     /* background-color: blue; */
@@ -170,7 +170,7 @@ export default {
     width: 80%;
     height: 90%;
     border-radius: 10%;
-    background: rgba(21, 125, 245, 0.5) linear-gradient(to right, rgba(104, 219, 214, 0.8), rgba(129, 228, 231, 0.7));
+    background: rgba(71, 204, 238, 0.5) linear-gradient(to right, rgba(104, 219, 214, 0.8), rgba(129, 228, 231, 0.7));
 }
 .el-btn-close{
     position: absolute;
