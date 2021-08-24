@@ -10,7 +10,7 @@
                 <el-button class="class-info-list-reset" @click="resetContents()">重置</el-button>
          </div>
       <hr class="hrcss">
-      <el-button type="primary" class="class-info-list-add">添加</el-button>
+      <el-button type="primary" class="class-info-list-add" @click="changeClassInfoAdd()">添加</el-button>
       <el-table
         :data="tableData"
         style="position: absolute;width: 80%; margin-left: 2%;margin-top: 3%;line-height: 1.5rem;height: 27rem;">
@@ -73,15 +73,25 @@
       :total="total">
     </el-pagination>
   </div>
+     <classInfoAdd v-if="classinfoadd" @changeClassInfoAdd_Var="changeClassInfoAdd_Var()"></classInfoAdd>
+     <classInfoUpdate v-if="classinfoupdate" @changeClassInfoUpdate_Var="changeClassInfoUpdate_Var()"></classInfoUpdate>
   </div>
 </template>
 
 <script>
 import lunbo from '../../../mainPage/components/lunbo.vue';
+import classInfoAdd from './classInfoAdd.vue'
+import classInfoUpdate from './classInfoUpdate.vue'
  export default {
-  components: { lunbo },
+  components: { 
+      lunbo,
+      classInfoAdd,
+      classInfoUpdate
+    },
     data() {
       return {
+        classinfoadd:false,
+        classinfoupdate: false,
         classname:'',
         fathername:'',
         classnum:'',
@@ -183,7 +193,17 @@ import lunbo from '../../../mainPage/components/lunbo.vue';
       }
     },
     methods: {
-    handleSizeChange(val) {
+      changeClassInfoUpdate_Var(data){
+        console.log("父类的: "+data);
+          this.classinfoupdate=data;
+      },
+      changeClassInfoAdd_Var(data){
+            this.classinfoadd=data;
+      },
+      changeClassInfoAdd(){
+             this.classinfoadd=!this.classinfoadd;
+      },
+      handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
@@ -197,7 +217,13 @@ import lunbo from '../../../mainPage/components/lunbo.vue';
          }
       },
       handleEdit(index, row) {
-        console.log(index, row);
+      
+        this.classinfoupdate=!this.classinfoupdate;
+        let classindex=this.currentPage*this.pagesize+index;
+        // this.class=this.tableData_List[classindex];
+      //  console.log(classindex);
+        // console.log(index, row);
+        console.log(this.classinfoupdate);
       },
       handleDelete(index, row) {
         console.log(index, row);
