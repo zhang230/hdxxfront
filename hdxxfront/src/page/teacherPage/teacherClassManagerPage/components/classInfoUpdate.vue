@@ -1,7 +1,7 @@
 <template>
     <div class="class-info-update">
        <el-button type="primary" @click="changeClassInfoUpdate_Var()" class="el-btn-close">关闭</el-button>
-         <el-button type="primary" @click="subMitAllIfo()" class="el-btn-submit">提交</el-button>
+         <el-button type="primary" @click="submitAllIfo()" class="el-btn-submit">提交</el-button>
        <el-form class="el-form-courseinfo" ref="ruleForm">
            <!-- :auto-upload="false" -->
            <!-- <el-upload
@@ -120,6 +120,26 @@ export default {
             this.$message.error('上传头像图片大小不能超过 2MB!');
             return false;
             }
+        },
+        submitAllIfo(){
+                let _this=this;
+                this.$http.put('/teacher/courseVideoInfoUpdate',{
+                    user_id: this.teacherCourseInfo.user_id,
+                    course_id:this.teacherCourseInfo.course_id,
+                    chapter_id: this.teacherCourseInfo.chapter_id
+                    // this.teacherCourseInfo.
+                    // this.teacherCourseInfo.
+                    // this.teacherCourseInfo.
+                    // this.teacherCourseInfo.
+                    // this.teacherCourseInfo.
+                    // this.teacherCourseInfo.
+                    // this.teacherCourseInfo.
+
+                }).then(function(res){
+                    console.log("")
+                  }).catch(function(err){
+                    console.log(err)
+                  })
         }
      },
      created(){
