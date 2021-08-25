@@ -23,28 +23,28 @@
         label="----课程名称----"
         width="150">
         <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.course_name }}</span>
+            <span style="margin-left: 10px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;" >{{ scope.row.course_name }}</span>
         </template>
         </el-table-column>
         <el-table-column
         label="----课程类别----"
         width="200">
         <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.course_category }}</span>
+            <span style="margin-left: 10px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{ scope.row.course_category }}</span>
         </template>
         </el-table-column>
         <el-table-column
         label="----章----"
         width="200">
         <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.course_zhang_name }}</span>
+            <span style="margin-left: 10px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{ scope.row.course_zhang_name }}</span>
         </template>
         </el-table-column>
         <el-table-column
         label="----节----"
         width="150">
         <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.course_jie_name }}</span>
+            <span style="margin-left: 10px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{ scope.row.course_jie_name }}</span>
         </template>
         </el-table-column>
        <el-table-column
@@ -58,7 +58,7 @@
             label="----状态----"
             width="150">
             <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.course_check_status }}</span>
+                <span style="margin-left: 10px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{ scope.row.course_check_status }}</span>
             </template>
         </el-table-column>
         <el-table-column label="----操作----">
@@ -71,6 +71,17 @@
             size="mini"
             type="primary"
             @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+             <el-dialog
+              title="提示"
+              :visible.sync="dialogVisible"
+              width="30%"
+              :before-close="handleClose">
+              <span>确定删除吗?</span>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="sureDeleteUserInfo()">确 定</el-button>
+              </span>
+            </el-dialog>
         </template>
         </el-table-column>
   </el-table>
@@ -105,6 +116,7 @@ import classInfoAdd from './classInfoAdd.vue'
    },
     data() {
       return {
+        dialogVisible:false,
         teacherCourseInfo: 1,
         classinfoupdate: false,
         classinfoadd: false,
@@ -119,6 +131,41 @@ import classInfoAdd from './classInfoAdd.vue'
       }
     },
     methods: {
+      sureDeleteUserInfo(){
+             this.dialogVisible = false;
+             let _this=this;
+             console.log("delete!!!");
+              console.log(this.teacherCourseInfo);
+                this.$http.delete('/teacher/courseVideoInfoDelete',
+                {
+                  data:{
+                    user_id: this.teacherCourseInfo.user_id,
+                    course_id:this.teacherCourseInfo.course_id,
+                    chapter_id: this.teacherCourseInfo.chapter_id,
+                    course_name: this.teacherCourseInfo.course_name,
+                    course_category: this.teacherCourseInfo.course_category,
+                    course_time: this.teacherCourseInfo.course_time,
+                    course_check_status: this.teacherCourseInfo.course_check_status,
+                    course_open_time: this.teacherCourseInfo.course_open_time,
+                    course_src_path: this.teacherCourseInfo.course_src_path,
+                    course_belong_to: this.teacherCourseInfo.course_belong_to,
+                    course_origin: this.teacherCourseInfo.course_origin,
+                    course_zhang_name: this.teacherCourseInfo.course_zhang_name,
+                    course_jie_name: this.teacherCourseInfo.course_jie_name
+                }}).then(function(res){
+                    //console.log(res);
+                     let data=res.data;
+                     if(data.msg=="操作成功"){
+                         _this.$message({
+                             message: data.msg,
+                             type:'warning'
+                         })
+                     }
+                  }).catch(function(err){
+                    console.log(err)
+                  })
+                  // location.reload();
+      },
       changeClassInfoAdd_Var(data){
         this.classinfoadd=data;
       },
@@ -148,12 +195,32 @@ import classInfoAdd from './classInfoAdd.vue'
         // console.log("当前class的index为: "+classindex+"classinfoupdate: "+this.classinfoupdate);
       },
       handleDelete(index, row) {
-        console.log(index, row);
+        this.dialogVisible=true;
+        let classindex=this.currentPage*this.pagesize+index;
+        this.teacherCourseInfo=this.tableData_List[classindex];
+         
       },
       resetContents(){
          this.course_name=this.course_category='';
       },
       findClassInfo(){
+          let _this=this;
+            this.$http.post('/teacher/findCourseVideoInfo',{
+                  user_id: sessionStorage.getItem("user_id"),
+                  course_name: this.course_name,
+                  course_category: this.course_category
+            }).then(function(res){
+                      console.log(res.data);
+                      _this.tableData_List=res.data.data;
+                      console.log(_this.tableData_List);
+                        _this.tableData=[];
+                          for(let i=0;i<Math.min(7,_this.tableData_List.length);i++){
+                            _this.tableData.push(_this.tableData_List[i]);
+                          }
+                    }).catch(function(err){
+                      console.log(err)
+                    }
+                  );
           console.log("OK");
       }
     },

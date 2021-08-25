@@ -126,17 +126,26 @@ export default {
                 this.$http.put('/teacher/courseVideoInfoUpdate',{
                     user_id: this.teacherCourseInfo.user_id,
                     course_id:this.teacherCourseInfo.course_id,
-                    chapter_id: this.teacherCourseInfo.chapter_id
-                    // this.teacherCourseInfo.
-                    // this.teacherCourseInfo.
-                    // this.teacherCourseInfo.
-                    // this.teacherCourseInfo.
-                    // this.teacherCourseInfo.
-                    // this.teacherCourseInfo.
-                    // this.teacherCourseInfo.
-
+                    chapter_id: this.teacherCourseInfo.chapter_id,
+                    course_name: this.teacherCourseInfo.course_name,
+                    course_category: this.teacherCourseInfo.course_category,
+                    course_time: this.teacherCourseInfo.course_time,
+                    course_check_status: this.teacherCourseInfo.course_check_status,
+                    course_open_time: this.teacherCourseInfo.course_open_time,
+                    course_src_path: this.teacherCourseInfo.course_src_path,
+                    course_belong_to: this.teacherCourseInfo.course_belong_to,
+                    course_origin: this.teacherCourseInfo.course_origin,
+                    course_zhang_name: this.teacherCourseInfo.course_zhang_name,
+                    course_jie_name: this.teacherCourseInfo.course_jie_name
                 }).then(function(res){
-                    console.log("")
+                    //console.log(res);
+                     let data=res.data;
+                     if(data.msg=="操作成功"){
+                         _this.$message({
+                             message: data.msg,
+                             type:'warning'
+                         })
+                     }
                   }).catch(function(err){
                     console.log(err)
                   })
