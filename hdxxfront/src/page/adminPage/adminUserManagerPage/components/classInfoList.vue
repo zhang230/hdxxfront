@@ -238,7 +238,7 @@ import classInfoUpdate from './classInfoUpdate.vue'
     created(){
        //请求资源
        this.tableData=[];
-         for(let i=0;i<7;i++){
+         for(let i=0;i<Math.min(7,this.tableData_List.length);i++){
            this.tableData.push(this.tableData_List[i]);
          }
     }

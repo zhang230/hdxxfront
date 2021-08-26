@@ -74,6 +74,9 @@ export default {
                         //  console.log(data1);
                         //  console.log(verifyCode);
                       sessionStorage.setItem("user_id",data1.data.user_id);
+                      sessionStorage.setItem("user",JSON.stringify(data1.data));
+                      // console.log("登录的对象是:");
+                      // console.log(data1.data);
                          if(data1.msg=='操作成功' && verifyCode.msg=='验证码正确'){
                               let turi='';
                               if(data1.data.role==='admin'){

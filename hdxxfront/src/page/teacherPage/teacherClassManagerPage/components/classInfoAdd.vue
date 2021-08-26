@@ -237,7 +237,7 @@ export default {
             let vm = this;
             // console.log("执行乐乐"+formName);
             this.$refs[formName].validate(function (valid) {
-                console.log("执行乐乐1");
+                // console.log("执行乐乐1");
                 if (valid) {
                     if(vm.formData.video){
                     	//验证视频大小和格式

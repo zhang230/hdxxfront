@@ -6,21 +6,6 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
-    // {
-    //   path: '/video',
-    //   name: 'vedio',
-    //   component: ()=>import('../page/userPage/userLookVideo/components/video.vue')
-    // },
-    // {
-    //     path: '/teacherUpdate',
-    //     name: 'teacherUpdate',
-    //     component: ()=>import('../page/teacherPage/teacherClassManagerPage/components/teacherUpdateClassPage.vue')
-    // },
-    // {
-    //   path: '/teacher',
-    //   name: 'teacher',
-    //   component: ()=>import('../page/teacherPage/teacherClassManagerPage/teacherClassManagerPage.vue')
-    // },
     {
       path: '/',
       name: 'mainPage',

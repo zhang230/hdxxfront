@@ -18,7 +18,7 @@ export default {
     props:['videosrc'],
     data() {
       return {
-          
+          tsrc:'',
           var_change:true,
           value: 4.2,
           playerOptions :	{
@@ -32,7 +32,9 @@ export default {
                 fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
                 sources: [{
                 type: "video/mp4",
-                src: this.videosrc //url地址
+                // src: this.videosrc //url地址
+                // src: require("C:/advisor/upload/video/springioc_20210825-112159-170.mp4")
+                src: ''
                 }],
                 // poster: "", //你的封面地址
                 //  width: document.documentElement.clientWidth,
@@ -48,6 +50,11 @@ export default {
     },
     methods: {
         
+    },
+    mounted(){
+      this.tsrc=this.videosrc;
+        console.log("数据路径: "+this.tsrc);
+        this.playerOptions.sources[0].src=this.tsrc;
     }
   }
 </script>

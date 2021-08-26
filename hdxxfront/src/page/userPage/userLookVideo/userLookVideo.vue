@@ -10,16 +10,16 @@
                 background-color="#545c64"
                 text-color="#fff"
                 active-text-color="#ffd04b">
-                 <el-submenu v-for="(zhangjie, i) in classList" :index="''+(i+1)" :key="i">
+                 <el-submenu v-for="(zhangjie, i) in showVar" :index="''+(i+1)" :key="i">
                     <template slot="title">
-                      <span style="position: absolute; left: 20%; overflow: hidden; text-overflow:ellipsis;" :title="zhangjie.zhang">{{zhangjie.zhang}}</span>
+                      <span style="position: absolute; left: 20%; overflow: hidden; text-overflow:ellipsis;" :title="zhangjie.czn">{{zhangjie.czn}}</span>
                     </template>
                     <!-- 监听儿子的参数 -->
                     <el-menu-item-group>
-                      <el-menu-item v-for="(zhangjiejie,j) in zhangjie.jie" 
+                      <el-menu-item v-for="(zhangjiejie,j) in zhangjie.cjnList" 
                       :index="(i+1)+'-'+(j+1)" 
                       :key="j"
-                      style="font-size: 0.5rem;overflow: hidden; text-overflow:ellipsis;"  :title="zhangjiejie" @click="toVedioPath(i,j)">{{zhangjiejie}}</el-menu-item>
+                      style="font-size: 0.5rem;overflow: hidden; text-overflow:ellipsis;"  :title="zhangjiejie" @click="toVedioPath(i,j)">{{zhangjiejie.course_jie_name}}</el-menu-item>
                     </el-menu-item-group>
 
                  </el-submenu>
@@ -52,47 +52,20 @@
                       style="position: absolute; width: 95%;margin-top: 4%;left: 2%;"
                     >
                     </el-input>
-                      <el-button type="success" class="el-footer-pinglun-input-el-btn">提交</el-button>
+                      <el-button type="success" class="el-footer-pinglun-input-el-btn" @click="pinglunSubmit()">留言</el-button>
                  </div>
-                  <div class="el-footer-pinglun-show">
+                  <div class="el-footer-pinglun-show" v-for="(item,index) in contextList" :key="index">
                    <div class="el-footer-pinglun-show-icon">
                         <img src="../../../assets/touxiang.png" alt="">
+                        <!-- <img :src="item.user_icon" alt=""> -->
                    </div>
                     <div  class="el-footer-pinglun-show-content">
                           <div class="el-footer-pinglun-show-content-name-data">
-                            <span style="position: absolute;left: 0px;top: 30%;color: #3BC6AA;font-weight: 1000;">张世和</span>
-                            <span style="position: absolute;left: 8%; top: 40%; font-size: 0.7rem;">2020-01-01</span>
+                            <span style="position: absolute;left: 0px;top: 30%;width: 10%;color: #3BC6AA;font-weight: 1000;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{item.user_name}}</span>
+                            <span style="position: absolute;left: 12%; top: 40%; font-size: 0.7rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{item.pinglunTime}}</span>
                           </div>
                           <div class="el-footer-pinglun-show-content-con">
-                            asdasdasdasdlksfjklsdfhskjfhskjdhs
-                          </div>
-                    </div>
-                 </div>
-                   <div class="el-footer-pinglun-show">
-                   <div class="el-footer-pinglun-show-icon">
-                        <img src="../../../assets/touxiang.png" alt="">
-                   </div>
-                    <div  class="el-footer-pinglun-show-content">
-                          <div class="el-footer-pinglun-show-content-name-data">
-                            <span style="position: absolute;left: 0px;top: 30%;color: #3BC6AA;font-weight: 1000;">张世和</span>
-                            <span style="position: absolute;left: 8%; top: 40%; font-size: 0.7rem;">2020-01-01</span>
-                          </div>
-                          <div class="el-footer-pinglun-show-content-con">
-                            asdasdasdasdlksfjklsdfhskjfhskjdhs
-                          </div>
-                    </div>
-                 </div>
-                   <div class="el-footer-pinglun-show">
-                   <div class="el-footer-pinglun-show-icon">
-                        <img src="../../../assets/touxiang.png" alt="">
-                   </div>
-                    <div  class="el-footer-pinglun-show-content">
-                          <div class="el-footer-pinglun-show-content-name-data">
-                            <span style="position: absolute;left: 0px;top: 30%;color: #3BC6AA;font-weight: 1000;">张世和</span>
-                            <span style="position: absolute;left: 8%; top: 40%; font-size: 0.7rem;">2020-01-01</span>
-                          </div>
-                          <div class="el-footer-pinglun-show-content-con">
-                            asdasdasdasdlksfjklsdfhskjfhskjdhs
+                            {{item.user_commit}}
                           </div>
                     </div>
                  </div>
@@ -104,86 +77,29 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import Video from './components/video.vue'
 export default {
    name: 'userLookVideo',
+  //  props:['zhangjieList'],
    data(){
        return{
          text:'',
           textarea:'',
           videosrc:'',
-          classList:[
-           {
-             zhang: 'c++入门',
-             jie:['c++入门1','c++入门2','c++入门3'] 
-           },
-           {
-             zhang: 'c++进阶',
-             jie:['c++进阶1asdsadasdsadasasdasdsadasdassadasdasdasdas','c++进阶2','c++进阶3','c++进阶4'] 
-           },
-           {
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },
-           {
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           },{
-             zhang: 'c++进阶',
-             jie:['c++进阶1','c++进阶2','c++进阶3','c++进阶4'] 
-           }
-          ]
+          classList:[],
+          chapters:[],
+          showVar:[],
+          zhangjieId:'',
+          contextList:[
+           
+          ],
+          tcontextList:{
+            user_icon:'',
+              user_name:'',
+              pinglunTime:'',
+              user_commit:''
+          }
        }
    },
    components:{
@@ -193,12 +109,77 @@ export default {
           toVedioPath(i,j){
             //  this.videosrc="path: 第"+(i+1)+"章。"+"第"+(j+1)+"节";
             //  console.log(this.videosrc);
-            this.videosrc="https://bdy.dangbei.net/vod/f3pn.mp4";
+            // this.videosrc=this.showVar[i].cjnList[j].course_src_path;
+            this.videosrc=this.showVar[i].cjnList[j].course_src_path;
+            this.zhangjieId=this.showVar[i].cjnList[j].chapter_id;
             //  console.log(this.videosrc);
+          },
+          formatDateTime(date) {
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                m = m < 10 ? ('0' + m) : m;
+                var d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                var h = date.getHours();
+                h=h < 10 ? ('0' + h) : h;
+                var minute = date.getMinutes();
+                minute = minute < 10 ? ('0' + minute) : minute;
+                var second=date.getSeconds();
+                second=second < 10 ? ('0' + second) : second;
+                return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;
+            },
+           pinglunSubmit(){
+             if(this.textarea==""){
+               this.$message("请输入内容哦~~")
+               return ;
+             }
+            this.tcontextList.pinglunTime=this.formatDateTime(new Date());
+            this.tcontextList.user_name=JSON.parse(sessionStorage.getItem("user")).user_name;
+            this.tcontextList.user_icon=JSON.parse(sessionStorage.getItem("user")).user_icon;
+            this.tcontextList.user_commit=this.textarea;
+            this.contextList.unshift(this.tcontextList);
+            this.tcontextList={
+               user_icon:'',
+              user_name:'',
+              pinglunTime:'',
+              user_commit:''
+            };
+            //后端发送请求
+            // let user_id=sessionStorage.getItem("user_id");
+            // console.log("user_id为: "+user_id);  
+            // console.log("内容为: ");
+            // console.log(this.textarea);
+            // console.log("章节id为: ");
+            // console.log(this.zhangjieId);
           }
    },
    mounted(){
-     console.log("父:"+this.videosrc);
+    //  console.log("章节信息:")
+     this.chapters=this.$route.query.zhangjieList.chapters;
+     if(this.chapters==null || this.chapters==undefined) return ;
+     let cznm = new Map();
+     let czns = new Set([]);
+
+     for(let i=0;i<this.chapters.length;i++){
+        czns.add(this.chapters[i].course_zhang_name);
+     }
+     for(let i=0;i<this.chapters.length;i++){
+       if(cznm.get(this.chapters[i].course_zhang_name)==null||cznm.get(this.chapters[i].course_zhang_name)==undefined){
+            cznm.set(this.chapters[i].course_zhang_name,[])
+       }
+            cznm.get(this.chapters[i].course_zhang_name).push(this.chapters[i])
+     }
+     for(let key of czns){
+         console.log(key);
+         console.log(cznm.get(key))
+        this.showVar.push({
+          czn: key,
+          cjnList: cznm.get(key)
+        })
+     }
+    //  for(let i=0;i<this.showVar.length;i++){
+    //    console.log(this.showVar[i]);
+    //  }
    }
 }
 </script>
@@ -276,7 +257,7 @@ export default {
     height: 100%;
   }
   .el-header {
-    background-color: #B3C0D1;
+    background-color: #545C64;
     color: #333;
     text-align: center;
     width: 100%;
@@ -361,6 +342,7 @@ export default {
 }
 .el-footer-pinglun-show{
     position: relative;
+    /* position: absolute; */
     width: 100%;
     height: 8rem;
     background-color: white;
@@ -369,6 +351,16 @@ export default {
     margin-bottom: 2%;
     box-shadow: 5px 5px 10px #CBCED0 inset;
     display: flex;
+
+    /* animation: dong 0.5s linear alternate; */
+}
+@keyframes dong {
+  0%{
+    transform: scale(0.5);
+  }
+  100%{
+    transform: scale(1);
+  }
 }
 .el-footer-pinglun-show-icon{
   position: absolute;
