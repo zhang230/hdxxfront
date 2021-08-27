@@ -186,7 +186,7 @@ export default {
     margin-top: 8%;
     width: 70%;
     height: 80%;
-    /* background-color: blue; */
+    /* background-color: rgba(92, 196, 228, 0.2); */
 }
 .class-info-icon-tishi{
     position: absolute;
@@ -206,8 +206,19 @@ export default {
     width: 80%;
     height: 90%;
     border-radius: 10%;
-    background: rgba(83, 203, 250, 0.5) linear-gradient(to right, rgba(104, 219, 214, 0.8), rgba(129, 228, 231, 0.7));
+   box-shadow: -10px -10px 10px #4C819D;
+   background-color: rgba(88, 238, 243, 0.95);
+    animation: tobig 0.2s alternate;
 }
+@keyframes tobig {
+    0%{
+        transform: scale(0.5);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
 .el-btn-close{
     position: absolute;
     top: 88%;
@@ -230,7 +241,7 @@ export default {
     top: 0%;
     width: 100%;
     height: 100%;
-    background: rgba(92, 196, 228, 0.5) linear-gradient(to right, rgba(0, 238, 255, 0), rgba(211, 114, 235, 0.4));
+    background: rgba(92, 196, 228, 0.2) ;
     z-index: 2;
 }
  .avatar-uploader .el-upload {

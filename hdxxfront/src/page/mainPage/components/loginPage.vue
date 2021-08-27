@@ -71,12 +71,19 @@ export default {
                       // console.log(res);
                       let data1=res.data[0].data1;
                       let verifyCode=res.data[1].verifyCode;
-                        //  console.log(data1);
+                         console.log(data1);
+                         if(data1.msg=="账号错误或者未注册"){
+                           _this.$message({
+                                message: data1.msg,
+                                type: 'info',
+                              });
+                              return ;
+                         }
                         //  console.log(verifyCode);
                       sessionStorage.setItem("user_id",data1.data.user_id);
                       sessionStorage.setItem("user",JSON.stringify(data1.data));
-                      // console.log("登录的对象是:");
-                      // console.log(data1.data);
+                      // console.log("登录返回的信息是:");
+                      // console.log(data1.msg);
                          if(data1.msg=='操作成功' && verifyCode.msg=='验证码正确'){
                               let turi='';
                               if(data1.data.role==='admin'){

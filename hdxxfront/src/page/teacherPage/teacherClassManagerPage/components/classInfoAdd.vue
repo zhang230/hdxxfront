@@ -269,6 +269,7 @@ export default {
                     }
                     // vm.$alert(typeof new Date(vm.tt.course_open_time));
                     vm.loading = true;
+                    console.log("course_name:"+vm.tt.course_name);
                     //封装表单数据传到后台
                     vm.formObj.append("user_id",(vm.tt.user_id));
                     vm.formObj.append("course_id",(vm.tt.course_id));
@@ -291,7 +292,7 @@ export default {
                     }
                     if(vm.formData.file!=null&&vm.formData.file!=undefined&&vm.formData.file!='') vm.formObj.append("file",vm.formData.file);
                     else {
-                        vm.$alert("请上传课程头像");
+                        vm.$alert("请先上传课程头像");
                         return false;
                     }
                     
@@ -302,7 +303,7 @@ export default {
                     // console.log(vm.tt);
                     // console.log(vm.formObj)
                     vm.$http.post("teacher/file/upload",vm.formObj).then(function(res){
-                        console.log(res);
+                        // console.log(res);
                         vm.formObj.delete("user_id");
                         vm.formObj.delete("course_id");
                         vm.formObj.delete("chapter_id");

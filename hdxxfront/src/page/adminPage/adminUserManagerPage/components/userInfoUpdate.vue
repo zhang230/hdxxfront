@@ -202,7 +202,7 @@ export default {
     top: 0%;
     width: 100%;
     height: 100%;
-    background: rgba(82, 151, 230,0.5) linear-gradient(to right, rgba(0,255,0,0), rgba(114, 235, 114, 0.4));
+    background: rgba(123, 177, 240, 0.5);
     z-index: 2;
 }
 .el-input {
@@ -225,6 +225,7 @@ export default {
     animation: tiao 0.5s 1 alternate;
     position: absolute;
     background-color: rgba(240, 246, 255, 0.95);
+        box-shadow: 10px 10px 10px 10px #51ACFC;
     border-radius: 20%;
     top: 10%;
     width: 50%;

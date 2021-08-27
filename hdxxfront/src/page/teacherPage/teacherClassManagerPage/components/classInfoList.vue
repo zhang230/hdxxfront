@@ -79,7 +79,7 @@
               <span>确定删除吗?</span>
               <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="sureDeleteUserInfo()">确 定</el-button>
+                <el-button type="primary" @click="sureDeleteClassInfo()">确 定</el-button>
               </span>
             </el-dialog>
         </template>
@@ -131,7 +131,7 @@ import classInfoAdd from './classInfoAdd.vue'
       }
     },
     methods: {
-      sureDeleteUserInfo(){
+      sureDeleteClassInfo(){
              this.dialogVisible = false;
              let _this=this;
              console.log("delete!!!");
@@ -211,8 +211,9 @@ import classInfoAdd from './classInfoAdd.vue'
                   course_category: this.course_category
             }).then(function(res){
                       console.log(res.data);
+                      _this.tableData_List=[];
                       _this.tableData_List=res.data.data;
-                      console.log(_this.tableData_List);
+                      // console.log(_this.tableData_List);
                         _this.tableData=[];
                           for(let i=0;i<Math.min(7,_this.tableData_List.length);i++){
                             _this.tableData.push(_this.tableData_List[i]);
@@ -228,9 +229,9 @@ import classInfoAdd from './classInfoAdd.vue'
       let _this=this;
        let user_id=sessionStorage.getItem("user_id");
         this.$http.get('/teacher/allCourseVideoInfo/'+user_id).then(function(res){
-                    console.log(res.data);
+                    // console.log(res.data);
                      _this.tableData_List=res.data.data;
-                     console.log(_this.tableData_List);
+                    //  console.log(_this.tableData_List);
                       _this.tableData=[];
                         for(let i=0;i<Math.min(7,_this.tableData_List.length);i++){
                           _this.tableData.push(_this.tableData_List[i]);
