@@ -24,7 +24,7 @@
                      <el-button type="success"  @click="searchCourse()">搜索</el-button>
                   </div>
               </div>
-              <div class="user-left-list" align="center">
+              <div class="user-left-list" align="center" v-loading="loading">
                       <div class="user-left-list-course" v-for="(item,index) in mianfei" :key="index">
                         <div class="user-left-list-course-icon">
                           <img :src="mianfei[index].course_icon" alt=""/>
@@ -92,7 +92,8 @@ export default {
         mianfei:[],
         tmianfei:[],
         tuijian:[1,2,3,4,5,6],
-        zhangjieList:''
+        zhangjieList:'',
+        loading: true
     }
   },
   components: {
@@ -174,6 +175,7 @@ export default {
                 _this.tmianfei[i].last_study_time=converTimeOfYMD(date);
                 _this.mianfei.push(_this.tmianfei[i]);
           }
+          _this.loading=false;
           // console.log("去除0之后的长度:"+_this.mianfei.length);
        }).catch(function(err){
           console.log(err);

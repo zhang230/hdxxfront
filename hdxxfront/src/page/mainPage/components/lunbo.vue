@@ -1,13 +1,13 @@
 <template>
  <div class="lunbo">
-       <el-carousel indicator-position="outside" :height="31 +'rem'">
-            <el-carousel-item v-for="item in 4" :key="item" >
-            <h3 >{{ item }}</h3>
+       <el-carousel indicator-position="outside" :height="31.5 +'rem'">
+            <el-carousel-item style="width: 100%;height: 100%;" v-for="item in imagesUrl" :key="item" >
+            <div class="lunbo-mid"><img :src="item" alt=""></div>
             </el-carousel-item>
         </el-carousel>
         <div class="lunbo-login">
             <div class="lunbo-login-title">
-                <div class="lunbo-login-title-div">欢迎来到知了堂学习VIP学习中心</div>
+                <div class="lunbo-login-title-div">欢迎来到预备队学习中心</div>
             </div>
             <div class="lunbo-login-mid">
                  <div class="lunbo-login-mid-div">一键注册,免费体验,试用专属学习方案</div>
@@ -17,7 +17,7 @@
                  <el-button  style="margin-left: 10%; width: 6rem; border:1px solid #3566CD;" @click="toLoginAndRegister(2)">注册</el-button>
             </div>
             <div class="lunbo-login-query">
-              欢迎咨询小姐姐QQ : 1804961700
+              欢迎咨询小哥哥QQ : 1804961700
             </div>
         </div>
  </div>
@@ -29,7 +29,8 @@ export default {
     data(){
       return{
          showLogin:false,
-         showRegister:false
+         showRegister:false,
+         imagesUrl:''
       }
     },
     methods:{
@@ -43,12 +44,47 @@ export default {
              showLogin: this.showLogin,
              showRegister: this.showRegister
            });
+        },
+        preload(){
+          this.imagesUrl=[
+                "http://localhost:8080/lun1.jpg",
+                "http://localhost:8080/lun2.jpg",
+                "http://localhost:8080/lun3.jpg",
+                "http://localhost:8080/lun4.gif",
+              ];
+              for(let i of imgs){
+                let image=new Image();
+                image.src=i;
+                image.onload = () =>{
+                  
+                }
+              }
         }
+    },
+    mounted(){
+        this.preload();
     }
 }
 </script>
 
 <style scoped>
+
+.lunbo-mid{
+  /* margin:0 auto; */
+  /* margin-top: 2%; */
+  width: 100%;
+  height: 100%;
+  /* background-color: red; */
+}
+.lunbo-mid img{
+  width: 100%;
+  height: 100%;
+  /* background-color: black; */
+  /* max-width: 100%; */
+  /* max-height: 100%; */
+  /* background-size: cover; */
+  object-fit: fill;
+}
 .lunbo-login-button{
   display: flex;
   margin-left: 20%;

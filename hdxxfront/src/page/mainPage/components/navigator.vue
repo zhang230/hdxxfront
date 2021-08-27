@@ -54,7 +54,7 @@ export default {
     background-color: #545c64;
 }
 .nav-title{
-    background: red;
+    background: #545c64;
     width: 13%;
 }
 </style>

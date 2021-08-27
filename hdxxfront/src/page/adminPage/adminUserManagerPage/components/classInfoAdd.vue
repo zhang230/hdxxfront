@@ -87,7 +87,7 @@ export default {
     width: 100%;
     height: 100%;
     /* background-color: rgba(97, 147, 221, 0.5); */
-    background: rgba(82, 151, 230,0.5) linear-gradient(to right, rgba(0,255,0,0), rgba(114, 235, 114, 0.4));
+    background: rgba(161, 221, 240, 0.95);
     z-index: 2;
     
 }

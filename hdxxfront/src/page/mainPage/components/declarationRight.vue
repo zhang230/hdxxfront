@@ -32,22 +32,22 @@
             <div class="dr-center-5-1">
                 <div class="dr-center-5-vx">
                     <div class="dr-center-5-vx-img">
-                        <img src="" alt="">
+                        <img src="../../../assets/vx.png" alt="">
                     </div>
-                    微信公众号
+                    微信号
                 </div>
                 <div class="dr-center-5-qq">
                 <div class="dr-center-5-qq-img">
-                        <img src="" alt="">
+                        <img src="../../../assets/qq.png" alt="">
                 </div>
-                    官方咨询QQ
+                    咨询QQ
             </div>
             </div>
             <div class="dr-center-5-tell">
                 联系电话:16608038762   联系QQ:1804961700
             </div>
             <div class="dr-center-5-address">
-                地址:成都天府软件园G8-7
+                地址:二仙桥成都理工大学
             </div>
         </div>
     </div>
@@ -171,12 +171,22 @@ export default {
 .dr-center-5-vx-img{
     width: 100%;
     height: 80%;
-    background-color: blue;
+    background-color: #475669;
+}
+.dr-center-5-vx-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
 .dr-center-5-qq-img{
     width: 100%;
     height: 80%;
-    background-color: blue;
+    background-color: #475669;
+}
+.dr-center-5-qq-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
 .dr-center-5-tell{
     margin-top: 7%;

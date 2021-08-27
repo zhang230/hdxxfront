@@ -227,7 +227,7 @@ import userInfoAdd from './userInfoAdd.vue'
                   })
       }
     },
-    created(){
+    mounted(){
               //向后端请求数据
                    let _this =this;
                   //  console.log(this.ruleForm.user_name+"::::!!"+this.ruleForm.user_password);

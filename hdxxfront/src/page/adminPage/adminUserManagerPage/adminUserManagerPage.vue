@@ -73,7 +73,7 @@ export default {
 .el-aside-logo{
     width: 100%;
     height: 8%;
-    background-color: red;
+    background-color: #B3C0D1;
 }
 .el-menu-vertical-demo{
     background-color: #333F51;

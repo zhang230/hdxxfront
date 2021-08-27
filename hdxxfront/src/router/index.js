@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router=new Router({
   mode: 'history',
   routes: [
     {
@@ -73,3 +73,24 @@ export default new Router({
   ]
 
 })
+
+//使用router的全局守卫  来拦截非法访问页面
+router.beforeEach((to,from,next) =>{
+  //to 是将要访问的路径
+  //from 从哪里跳转来的
+  //next 是一个函数，表示放行
+
+    const tokenStr = window.sessionStorage.getItem("user_id");
+    if(to.path == "/"){
+       return next();
+    }else{
+       if(tokenStr == undefined || tokenStr == null){
+         //如果没有登陆就访问其他页面，那么就跳转到登陆页面去
+           return next("/");
+       }else{
+           return next();
+       }
+    }
+})
+
+export default router

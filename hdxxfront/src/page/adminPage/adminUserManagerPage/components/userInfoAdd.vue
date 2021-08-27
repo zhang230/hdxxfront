@@ -212,7 +212,7 @@ export default {
     width: 100%;
     height: 100%;
     /* background-color: rgba(97, 147, 221, 0.5); */
-    background: rgba(82, 151, 230,0.5) linear-gradient(to right, rgba(0,255,0,0), rgba(114, 235, 114, 0.4));
+    background: rgba(151, 231, 241, 0.2);
     z-index: 2;
     
 }
@@ -228,6 +228,7 @@ export default {
   animation: tiao 0.5s 1 alternate;
     position: absolute;
     background-color: rgba(240, 246, 255, 0.95);
+    box-shadow: 10px 10px 10px 10px #51ACFC;
     border-radius: 20%;
     top: 10%;
     width: 50%;
