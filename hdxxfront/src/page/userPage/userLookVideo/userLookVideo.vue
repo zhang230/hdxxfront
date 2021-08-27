@@ -56,7 +56,7 @@
                  </div>
                   <div class="el-footer-pinglun-show" v-for="(item,index) in contextList" :key="index">
                    <div class="el-footer-pinglun-show-icon">
-                        <img src="../../../assets/touxiang.png" alt="">
+                        <img :src="item.user_icon" alt="">
                         <!-- <img :src="item.user_icon" alt=""> -->
                    </div>
                     <div  class="el-footer-pinglun-show-content">
@@ -99,7 +99,8 @@ export default {
               user_name:'',
               pinglunTime:'',
               user_commit:''
-          }
+          },
+          jieIndex: '',
        }
    },
    components:{
@@ -112,6 +113,34 @@ export default {
             // this.videosrc=this.showVar[i].cjnList[j].course_src_path;
             this.videosrc=this.showVar[i].cjnList[j].course_src_path;
             this.zhangjieId=this.showVar[i].cjnList[j].chapter_id;
+            this.jieIndex=j;
+            //加载评论
+            let _this=this;
+            this.$http.post("user/findUserCommit",{
+              user_id: JSON.parse(sessionStorage.getItem("user_id")),
+              chapter_id: _this.chapters[_this.jieIndex].chapter_id
+            }).then(function(res){  
+              //  console.log("返回的评论");
+                // console.log(res.data.data);
+                let t=res.data.data;
+                // console.log(t);
+                for(let i=0;i<t.length;i++){
+                  _this.tcontextList={
+                     user_icon:'',
+                    user_name:'',
+                    pinglunTime:'',
+                    user_commit:''
+                  }
+                  _this.tcontextList.user_icon=t[i].users[0].user_icon;
+                  _this.tcontextList.user_name=t[i].users[0].user_name;
+                  _this.tcontextList.pinglunTime=_this.formatDateTime(new Date(t[i].user_commit_time));
+                  _this.tcontextList.user_commit=t[i].user_commit;
+                  _this.contextList.unshift(_this.tcontextList);
+                }
+            }).catch(function(err){
+                  console.log(err);
+                  _this.$alert("submit err");
+            })
             //  console.log(this.videosrc);
           },
           formatDateTime(date) {
@@ -126,7 +155,7 @@ export default {
                 minute = minute < 10 ? ('0' + minute) : minute;
                 var second=date.getSeconds();
                 second=second < 10 ? ('0' + second) : second;
-                return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;
+                return y + '-' + m + '-' + d;
             },
            pinglunSubmit(){
              if(this.textarea==""){
@@ -144,18 +173,34 @@ export default {
               pinglunTime:'',
               user_commit:''
             };
+            let tuser_id=JSON.parse(sessionStorage.getItem("user_id"));
+            let tchapter_id=this.chapters[this.jieIndex].chapter_id;
+            let tuser_commit=this.textarea;
+            let tuser_commit_time=this.formatDateTime(new Date());
+            // console.log("传到后台的数据: ");
+            // console.log(tuser_id);
+            // console.log(tchapter_id);
+            // console.log(tuser_commit);
+            console.log("日期:"+tuser_commit_time);
+            
             //后端发送请求
-            // let user_id=sessionStorage.getItem("user_id");
-            // console.log("user_id为: "+user_id);  
-            // console.log("内容为: ");
-            // console.log(this.textarea);
-            // console.log("章节id为: ");
-            // console.log(this.zhangjieId);
+            //传参user_id,chapter_id,user_commit,user_commit_time,
+            this.$http.post("user/userCommit",{
+              user_id: tuser_id,
+              chapter_id: tchapter_id,
+              user_commit: tuser_commit,
+              user_commit_time: tuser_commit_time
+            }).then(function(res){
+                    console.log(res);
+            }).catch(function(err){
+                  _this.$alert("submit err");
+            });
           }
    },
    mounted(){
-    //  console.log("章节信息:")
+     console.log("章节信息:")
      this.chapters=this.$route.query.zhangjieList.chapters;
+     console.log(this.$route.query.zhangjieList);
      if(this.chapters==null || this.chapters==undefined) return ;
      let cznm = new Map();
      let czns = new Set([]);

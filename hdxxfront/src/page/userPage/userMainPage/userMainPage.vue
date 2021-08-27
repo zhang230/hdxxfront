@@ -41,7 +41,7 @@
                                       创建时间:{{mianfei[index].course_create_time}}
                                 </div>
                                 <div class="user-left-list-course-right-course2-2" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
-                                      上次学习时间:{{mianfei[index].last_study_time}}
+                                      <!-- 上次学习时间:{{mianfei[index].last_study_time}} -->
                                 </div>
                             </div>
                             <div class="user-left-list-course-right-course3">
@@ -65,7 +65,7 @@
                         <img src="../../../assets/touxiang.png" alt="">
                    </div>
                    <div class="user-right-course-down">
-                          课程名称 : 13213212312312312313213
+                          课程名称 : 戏剧艺术课程
                    </div>
                </div>
                
@@ -157,8 +157,8 @@ export default {
        this.$http.get("user/allCourseInfo").then(function(res){
           // console.log(res);
           _this.tmianfei=res.data.data;
-          // console.log("获得课程:");
-          // console.log(_this.mianfei);
+          console.log("获得课程:");
+          console.log(_this.mianfei);
            // 核心代码，可自行封装
           function converTimeOfYMD(date) {
             return new Date(date).toISOString().slice(0, 10);
@@ -174,7 +174,7 @@ export default {
                 _this.tmianfei[i].last_study_time=converTimeOfYMD(date);
                 _this.mianfei.push(_this.tmianfei[i]);
           }
-          console.log("去除0之后的长度:"+_this.mianfei.length);
+          // console.log("去除0之后的长度:"+_this.mianfei.length);
        }).catch(function(err){
           console.log(err);
        });

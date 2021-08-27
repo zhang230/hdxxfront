@@ -232,6 +232,20 @@ export default {
         resetForm(formName) {
             this.$refs[formName].resetFields();
         },
+        formatDateTime(date) {
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                m = m < 10 ? ('0' + m) : m;
+                var d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                var h = date.getHours();
+                h=h < 10 ? ('0' + h) : h;
+                var minute = date.getMinutes();
+                minute = minute < 10 ? ('0' + minute) : minute;
+                var second=date.getSeconds();
+                second=second < 10 ? ('0' + second) : second;
+                return y + '-' + m + '-' + d;
+            },
         //点击立即添加按钮
         onSubmit(formName) {
             let vm = this;
@@ -261,6 +275,7 @@ export default {
                     vm.formObj.append("chapter_id",(vm.tt.chapter_id));
                     vm.formObj.append("course_name",vm.tt.course_name);
                     vm.formObj.append("course_category",vm.tt.course_category);
+                    vm.formObj.append("course_create_time",new Date());
                     vm.formObj.append("course_time",parseInt(vm.tt.course_time));
                     vm.formObj.append("course_check_status",parseInt(vm.tt.course_check_status));
                     vm.formObj.append("course_open_time",vm.tt.course_open_time);
@@ -293,6 +308,7 @@ export default {
                         vm.formObj.delete("chapter_id");
                         vm.formObj.delete("course_name");
                         vm.formObj.delete("course_category");
+                        vm.formObj.delete("course_create_time");
                         vm.formObj.delete("course_time");
                         vm.formObj.delete("course_check_status");
                         vm.formObj.delete("course_open_time");
